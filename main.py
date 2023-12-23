@@ -26,7 +26,14 @@ def get_entity2(id):
 
 @app.route('/health')
 def health_check():
-    return jsonify({"status": "OK"})
+    if health_check:
+        resp = jsonify(health="healthy")
+        resp.status_code = 200
+    else:
+        resp = jsonify(health="unhealthy")
+        resp.status_code = 500
+
+    return resp
 
 if __name__ == '__main__':
     app.run(debug=True)
